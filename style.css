@@ -279,3 +279,40 @@ h1{
     text-align: center;
     background-color: #e77533;
 }
+
+@media (max-width: 600px) {
+  .flavor-box {
+    width: 100%;
+    padding: 12px 10px;
+    margin-bottom: 15px;
+  }
+
+  .flavor-box h2 {
+    font-size: 28px;
+  }
+
+  .flavor-box label {
+    font-size: 20px;
+  }
+
+  .flavor-box input[type="text"],
+  .flavor-box input[type="number"] {
+    width: 100%;
+    font-size: 16px;
+    margin-left: 0;
+  }
+
+  .flavor-box button {
+    width: 100%;
+    font-size: 18px;
+    padding: 12px 0;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  #saleSign {
+    font-size: 30px;
+  }
+}

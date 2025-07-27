@@ -283,13 +283,12 @@ h1{
 @media (max-width: 600px) {
   body {
     font-size: 14px;
+    background-color: #f0f0f0;
   }
 
   #shop-title,
-  #saleSign,
-  h1 {
-    font-size: 20px;
-    padding: 0 10px;
+  #saleSign {
+    font-size: 22px;
   }
 
   .flavor-box {
@@ -302,13 +301,9 @@ h1{
     font-size: 32px;
   }
 
+  .flavor-box label,
   .flavor-box p {
     font-size: 16px;
-  }
-
-  .flavor-box label {
-    font-size: 18px;
-    -webkit-text-stroke-width: 1px;
   }
 
   .flavor-box input[type="text"],
@@ -319,18 +314,13 @@ h1{
 
   .flavor-box button {
     font-size: 16px;
-    padding: 8px 16px;
     width: 90%;
   }
 
   #first-time-order {
     font-size: 16px;
-    padding: 0 10px;
-  }
-    @media (max-width: 600px) {
-  body {
-    background-color: red;
   }
 }
+
 
 }

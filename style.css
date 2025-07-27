@@ -281,38 +281,50 @@ h1{
 }
 
 @media (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+
+  #shop-title,
+  #saleSign,
+  h1 {
+    font-size: 20px;
+    padding: 0 10px;
+  }
+
   .flavor-box {
-    width: 100%;
-    padding: 12px 10px;
-    margin-bottom: 15px;
+    width: 95%;
+    padding: 10px;
+    border-width: 2px;
   }
 
   .flavor-box h2 {
-    font-size: 28px;
+    font-size: 32px;
+  }
+
+  .flavor-box p {
+    font-size: 16px;
   }
 
   .flavor-box label {
-    font-size: 20px;
+    font-size: 18px;
+    -webkit-text-stroke-width: 1px;
   }
 
   .flavor-box input[type="text"],
   .flavor-box input[type="number"] {
-    width: 100%;
-    font-size: 16px;
-    margin-left: 0;
+    width: 90%;
+    font-size: 14px;
   }
 
   .flavor-box button {
-    width: 100%;
-    font-size: 18px;
-    padding: 12px 0;
+    font-size: 16px;
+    padding: 8px 16px;
+    width: 90%;
   }
 
-  h1 {
-    font-size: 24px;
-  }
-
-  #saleSign {
-    font-size: 30px;
+  #first-time-order {
+    font-size: 16px;
+    padding: 0 10px;
   }
 }

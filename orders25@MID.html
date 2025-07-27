@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Submitted Orders</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .order-item {
+      background: white;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .order-item p {
+      margin: 5px 0;
+    }
+
+    button.delete-btn {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    button.delete-btn:hover {
+      background-color: #c0392b;
+    }
+
+    #clear-all {
+      background-color: #333;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #clear-all:hover {
+      background-color: #555;
+    }
+  </style>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Submitted Orders</title>
+  <style>
+    /* Your existing styles here */
+  </style>
+</head>
+<body>
+  <h1>All Orders</h1>
+  <div id="order-list"></div>
+  <button id="clear-all">Delete All Orders</button>
+
+  <!-- Firebase Modular SDKs imported as ES modules -->
+  <script type="module">
+    // 1. Import Firebase functions from CDN
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, getDocs, query, orderBy, deleteDoc, doc, writeBatch } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // 2. Firebase config — fill with your actual config!
+    const firebaseConfig = {
+      apiKey: "AIzaSyD_zQBr92bmmLjMNR5Rk-hI81MTU6AxuTc",
+      authDomain: "gum-nation.firebaseapp.com",
+      projectId: "gum-nation",
+      storageBucket: "gum-nation.firebasestorage.app",
+      messagingSenderId: "867714985681",
+      appId: "1:867714985681:web:3531a8983f4dc5c1cfdff0",
+      measurementId: "G-0C8NDPXTH7"
+    };
+
+    // 3. Initialize Firebase app and Firestore database
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // 4. DOM elements (make sure they exist in your HTML)
+    const container = document.getElementById('order-list');
+    const clearBtn = document.getElementById('clear-all');
+
+    // 5. Render orders in the page
+    function renderOrders(orders) {
+      if (orders.length === 0) {
+        container.innerHTML = '<p>No orders found.</p>';
+        return;
+      }
+      container.innerHTML = '';
+      orders.forEach(order => {
+        const orderDiv = document.createElement('div');
+        orderDiv.className = 'order-item';
+        orderDiv.innerHTML = `
+          <p><strong>${order.name}</strong> ordered 
+          <strong>${order.quantity}</strong> x ${order.flavor}</p>
+          <p><small>${new Date(order.timestamp).toLocaleString()}</small></p>
+          <button class="delete-btn" data-id="${order.id}">Delete</button>
+        `;
+        container.appendChild(orderDiv);
+      });
+
+      // Attach event listeners to delete buttons
+      container.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          deleteOrder(button.dataset.id);
+        });
+      });
+    }
+
+    // 6. Load orders from Firestore
+    async function loadOrders() {
+      try {
+        const ordersCol = collection(db, "orders");
+        const q = query(ordersCol, orderBy("timestamp", "desc"));
+        const snapshot = await getDocs(q);
+        const orders = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        renderOrders(orders);
+      } catch (error) {
+        container.innerHTML = `<p>Error loading orders: ${error.message}</p>`;
+      }
+    }
+
+    // 7. Delete single order
+    async function deleteOrder(id) {
+      if (confirm('Are you sure you want to delete this order?')) {
+        await deleteDoc(doc(db, "orders", id));
+        loadOrders();
+      }
+    }
+
+    // 8. Delete all orders
+    clearBtn.addEventListener('click', async () => {
+      if (confirm('Delete all orders?')) {
+        const ordersCol = collection(db, "orders");
+        const snapshot = await getDocs(ordersCol);
+        const batch = writeBatch(db);
+        snapshot.forEach(docSnap => batch.delete(docSnap.ref));
+        await batch.commit();
+        loadOrders();
+      }
+    });
+
+    // 9. Load orders once DOM is ready
+    loadOrders();
+
+  </script>
+</body>
+</html>
+

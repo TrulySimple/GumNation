@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Knewave&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Monofett&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shop Our Flavors</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 id="shop-title">Welcome to Gum Nation <strong>
+        <br> Pre Order Your Favorite Flavors Bellow! </strong></h1>
+
+        <h1 id="saleSign"><strong>BACK TO SCHOOL SALE!!!!!</strong></h1>
+
+   
+   <br>
+
+
+
+    <div class="shop-container">
+  <div class="flavor-box" id="Sgumimg">
+    <h2 id="spearmint">Spearmint</h2>
+    <p id="pStore">
+      <strong>Experience the cool, refreshing taste of Spearmint gum, perfect for any time you need a burst of flavor!</strong>
+    </p>
+
+    <form class="order-form">
+      <input type="hidden" name="flavor" value="Spearmint">
+      
+      <label>
+        <strong>Name:</strong>
+        <input type="text" name="name" required>
+      </label>
+      
+      <label>
+        <strong>Quantity:</strong>
+        <input type="number" name="quantity" min="1" required max="5">
+      </label>
+
+      <button type="submit">Order</button>
+    </form>
+
+    <p id="basicprice"><del>Price : $0.50</del></p>
+    <p id="salebasicprice"><strong>Price : $0.25 %50 OFF!!!!</strong></p>
+  </div>
+</div>
+
+
+    <div class="flavor-box" id="Wgimg">
+        <h2 id="watermelon">Watermelon</h2>
+        <p id="pStore"><strong>Indulge in the juicy, sweet flavor of Watermelon gum, a summertime favorite all year round!</strong></p>
+       <form class="order-form">
+    <input type="hidden" name="flavor" value="Watermelon">
+    <label>
+        <strong>Name:</strong>
+        <input type="text" name="name" required>
+    </label>
+    <label>
+        <strong>Quantity:</strong>
+        <input type="number" name="quantity" min="1" required max="5">
+    </label>
+    <button type="submit">Order</button>
+</form>
+    <p id="basicprice"><del>Price : $0.50</del></p>
+     <p id="salebasicprice"><strong>Price : $0.25 %50 OFF!!!!</strong></p>
+    </div>
+
+    <div class="flavor-box" id="Bgumimg">
+        <h2 id="bubblegum">Bubblegum</h2>
+        <p id="pStoreB"><strong>Relive your childhood with the classic taste of Bubblegum, perfect for blowing bubbles and sharing smiles!</strong></p>
+       <form class="order-form">
+        <label>
+            <strong>Name:</strong>
+        <input type="text" name="name" required>
+    </label>
+    <label>
+        <input type="hidden" name="flavor" value="Bubblegum">
+        <strong>Quantity:</strong>
+        <input type="number" name="quantity" min="1" required max="5">
+    </label>
+    <button type="submit">Order</button>
+</form>
+    <p id="basicprice"><del>Price : $0.50</del></p>
+     <p id="salebasicprice"><strong>Price : $0.25 %50 OFF!!!!</strong></p>
+    </div>
+
+     <div class="flavor-box" id="PGumimg">
+        <h2 id="peppermint">Peppermint</h2>
+        <p id="pStoreS"><strong>Experience the cool, refreshing taste of Peppermint gum, perfect for any time you need a burst of flavor!</strong></p>
+       <form class="order-form">
+        <label>
+           <strong>Name:</strong>
+        <input type="text" name="name" required>
+    </label>
+    <label>
+        <input type="hidden" name="flavor" value="Peppermint">
+        <strong>Quantity:</strong>
+        <input type="number" name="quantity" min="1" required max="5">
+    </label>
+    <button type="submit">Order</button>
+</form>
+    <p id="basicprice"><del>Price : $0.50</del></p>
+     <p id="salebasicprice"><strong>Price : $0.25 %50 OFF!!!!</strong></p>
+    </div>
+    
+    <div class="flavor-box" id="TGumimg">
+        <h2 id="TropicalTwist">Tropical Twist</h2>
+        <p id="pStoreT"><strong>Experience the vibrant, fruity taste of Tropical Twist gum, a perfect escape to paradise with every chew!</strong></p>
+       <form class="order-form">
+        <label>
+            <strong>Name:</strong>
+        <input type="text" name="name" required>
+    </label>
+    <label>
+        <input type="hidden" name="flavor" value="TropicalTwist">
+        <strong>Quantity:</strong>
+        <input type="number" name="quantity" min="1" required max="5">
+    </label>
+    <button type="submit">Order</button>
+</form>
+    <p id="rareprice"><del>Price : $0.75</del></p>
+     <p id="salerareprice"><strong>Price : $0.50 %33 OFF!!!!</strong></p>
+    </div>
+
+     <p id="first-time-order"><strong>any online orders may not exceed 5 sticks (per flavor).</strong></p>
+
+
+<script type="module">
+
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyD_zQBr92bmmLjMNR5Rk-hI81MTU6AxuTc",
+    authDomain: "gum-nation.firebaseapp.com",
+    projectId: "gum-nation",
+    storageBucket: "gum-nation.firebasestorage.app",
+    messagingSenderId: "867714985681",
+    appId: "1:867714985681:web:3531a8983f4dc5c1cfdff0",
+    measurementId: "G-0C8NDPXTH7"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  document.querySelectorAll('.order-form').forEach(form => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const order = {
+        flavor: formData.get('flavor'),
+        name: formData.get('name'),
+        quantity: Number(formData.get('quantity')),
+        timestamp: Date.now()
+      };
+
+      try {
+        await addDoc(collection(db, "orders"), order);
+        alert('Order submitted successfully!');
+        form.reset();
+      } catch (error) {
+        alert('Error submitting order: ' + error.message);
+        console.error("Error adding order: ", error);
+      }
+    });
+  });
+</script>
+
+
+
+    <footer>
+        <p>© 2025 Gum Nation. All rights reserved.</p>
+        <p>Don't Try And Find Us, We Are A <u>Secret Society</u>.</p>
+
+
+
+</body>
+</html>

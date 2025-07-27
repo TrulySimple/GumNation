@@ -280,36 +280,47 @@ h1{
     background-color: #e77533;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   body {
     font-size: 14px;
-    background-color: #f0f0f0;
+    padding: 0;
+    margin: 0;
+    background-color: #ffffff;
   }
 
-  #shop-title,
-  #saleSign {
-    font-size: 22px;
+  h1, #shop-title, #saleSign {
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .shop-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
   }
 
   .flavor-box {
     width: 95%;
-    padding: 10px;
+    padding: 15px;
+    margin: 10px 0;
+    font-size: 14px;
     border-width: 2px;
   }
 
   .flavor-box h2 {
-    font-size: 32px;
+    font-size: 26px;
   }
 
-  .flavor-box label,
   .flavor-box p {
     font-size: 16px;
   }
 
   .flavor-box input[type="text"],
   .flavor-box input[type="number"] {
-    width: 90%;
     font-size: 14px;
+    width: 90%;
   }
 
   .flavor-box button {
@@ -318,9 +329,11 @@ h1{
   }
 
   #first-time-order {
-    font-size: 16px;
+    font-size: 14px;
+    padding: 10px;
   }
 }
+
 
 
 }

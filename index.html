@@ -134,17 +134,12 @@
     <strong>Any online orders may not exceed 5 sticks (per flavor).</strong>
   </p>
 
-  <!-- Bad words filter library -->
-
-
-  <!-- Firebase and app logic -->
-<!-- Include bad-words library -->
-<script src="https://cdn.jsdelivr.net/npm/bad-words"></script>
-
+<!-- Firebase and app logic (no bad word filter) -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+  // Initialize Firebase
   const firebaseConfig = {
     apiKey: "AIzaSyD_zQBr92bmmLjMNR5Rk-hI81MTU6AxuTc",
     authDomain: "gum-nation.firebaseapp.com",
@@ -152,50 +147,36 @@
     storageBucket: "gum-nation.firebasestorage.app",
     messagingSenderId: "867714985681",
     appId: "1:867714985681:web:3531a8983f4dc5c1cfdff0",
-    measurementId: "G-0C8NDPXTH7"
+    measurementId: "G-0C8NDPXTH7",
   };
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // Create filter instance once
-  const filter = new Filter();
-
-  // Select all forms with class 'order-form'
-  document.querySelectorAll('.order-form').forEach(form => {
-    form.addEventListener('submit', async e => {
+  document.querySelectorAll(".order-form").forEach((form) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const formData = new FormData(form);
-      const name = formData.get('name').trim();
-      const flavor = formData.get('flavor');
-      const quantity = Number(formData.get('quantity'));
-
-      // Check profanity on the name only
-      if (filter.isProfane(name)) {
-        alert('Please avoid using inappropriate language in your name.');
-        return; // BLOCK submission if bad words found
-      }
-
-      // Prepare order object
       const order = {
-        name,
-        flavor,
-        quantity,
-        timestamp: Date.now()
+        flavor: formData.get("flavor"),
+        name: formData.get("name").trim(),
+        quantity: Number(formData.get("quantity")),
+        timestamp: Date.now(),
       };
 
       try {
-        await addDoc(collection(db, 'orders'), order);
-        alert('Order submitted successfully!');
+        await addDoc(collection(db, "orders"), order);
+        alert("Order submitted successfully!");
         form.reset();
       } catch (error) {
-        alert('Error submitting order: ' + error.message);
-        console.error(error);
+        alert("Error submitting order: " + error.message);
+        console.error("Error adding order: ", error);
       }
     });
   });
 </script>
+
 
 
 

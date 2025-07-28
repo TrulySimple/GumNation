@@ -298,7 +298,12 @@ body, html{
     margin: 0%;
     padding: 0%;
     overflow-x: hidden;
+        box-sizing: border-box;
 }
+    *, *::before, *::after {
+    box-sizing: inherit;
+        max-width: 100%;
+    }
 
 
   h1, #shop-title, #saleSign {

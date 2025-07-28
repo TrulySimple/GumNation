@@ -127,12 +127,15 @@
 
      <p id="first-time-order"><strong>any online orders may not exceed 5 sticks (per flavor).</strong></p>
 
-
+    
+<script src="https://cdn.jsdelivr.net/npm/bad-words"></script>
 <script type="module">
 
+ <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+  // Initialize Firebase
   const firebaseConfig = {
     apiKey: "AIzaSyD_zQBr92bmmLjMNR5Rk-hI81MTU6AxuTc",
     authDomain: "gum-nation.firebaseapp.com",
@@ -158,6 +161,18 @@
         timestamp: Date.now()
       };
 
+      // Profanity filter with bad-words library
+      const Filter = window.Filter; // global class from CDN script
+      const filter = new Filter();
+
+      // Optional: Add custom words to filter if you want
+      // filter.addWords('deez', 'ligma', 'sus');
+
+      if (filter.isProfane(order.name)) {
+        alert("Please avoid using inappropriate language in your name.");
+        return; // stop submission if profanity detected
+      }
+
       try {
         await addDoc(collection(db, "orders"), order);
         alert('Order submitted successfully!');
@@ -169,6 +184,7 @@
     });
   });
 </script>
+
 
 
 

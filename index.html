@@ -141,6 +141,7 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+  // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyD_zQBr92bmmLjMNR5Rk-hI81MTU6AxuTc",
     authDomain: "gum-nation.firebaseapp.com",
@@ -154,7 +155,15 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
+  // Create filter instance
   const filter = new Filter();
+
+  // OPTIONAL: Clear default bad words to prevent blocking normal words
+  // Comment this out to test if it solves your problem
+  filter.clearList();
+
+  // OPTIONAL: Add your own custom bad words if needed:
+  // filter.addWords('badword1', 'badword2');
 
   document.querySelectorAll(".order-form").forEach((form) => {
     form.addEventListener("submit", async (e) => {
@@ -163,14 +172,12 @@
       const formData = new FormData(form);
       const nameInput = formData.get("name").trim();
 
-      console.log("Checking name:", nameInput); // Debugging line
-
       if (nameInput === "") {
         alert("Name cannot be empty.");
         return;
       }
 
-      // Check profanity
+      // Profanity check
       if (filter.isProfane(nameInput)) {
         alert("Please avoid using inappropriate language in your name.");
         return;

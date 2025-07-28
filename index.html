@@ -141,7 +141,6 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  // Initialize Firebase
   const firebaseConfig = {
     apiKey: "AIzaSyD_zQBr92bmmLjMNR5Rk-hI81MTU6AxuTc",
     authDomain: "gum-nation.firebaseapp.com",
@@ -162,17 +161,27 @@
       e.preventDefault();
 
       const formData = new FormData(form);
+      const nameInput = formData.get("name").trim();
+
+      console.log("Checking name:", nameInput); // Debugging line
+
+      if (nameInput === "") {
+        alert("Name cannot be empty.");
+        return;
+      }
+
+      // Check profanity
+      if (filter.isProfane(nameInput)) {
+        alert("Please avoid using inappropriate language in your name.");
+        return;
+      }
+
       const order = {
         flavor: formData.get("flavor"),
-        name: formData.get("name"),
+        name: nameInput,
         quantity: Number(formData.get("quantity")),
         timestamp: Date.now(),
       };
-
-      if (filter.isProfane(order.name)) {
-        alert("Please avoid using inappropriate language in your name.");
-        return; // stop submission if profanity detected
-      }
 
       try {
         await addDoc(collection(db, "orders"), order);

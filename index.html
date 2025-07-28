@@ -137,58 +137,58 @@
 
   <!-- Firebase and app logic -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    // Initialize Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyD_zQBr92bmmLjMNR5Rk-hI81MTU6AxuTc",
-      authDomain: "gum-nation.firebaseapp.com",
-      projectId: "gum-nation",
-      storageBucket: "gum-nation.firebasestorage.app",
-      messagingSenderId: "867714985681",
-      appId: "1:867714985681:web:3531a8983f4dc5c1cfdff0",
-      measurementId: "G-0C8NDPXTH7",
-    };
+  // Initialize Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyD_zQBr92bmmLjMNR5Rk-hI81MTU6AxuTc",
+    authDomain: "gum-nation.firebaseapp.com",
+    projectId: "gum-nation",
+    storageBucket: "gum-nation.firebasestorage.app",
+    messagingSenderId: "867714985681",
+    appId: "1:867714985681:web:3531a8983f4dc5c1cfdff0",
+    measurementId: "G-0C8NDPXTH7",
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-    document.querySelectorAll(".order-form").forEach((form) => {
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+  document.querySelectorAll(".order-form").forEach((form) => {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-        const formData = new FormData(form);
-        const order = {
-          flavor: formData.get("flavor"),
-          name: formData.get("name"),
-          quantity: Number(formData.get("quantity")),
-          timestamp: Date.now(),
-        };
+      const formData = new FormData(form);
+      const order = {
+        flavor: formData.get("flavor"),
+        name: formData.get("name"),
+        quantity: Number(formData.get("quantity")),
+        timestamp: Date.now(),
+      };
 
-        // Profanity filter with bad-words library
-        const Filter = window.Filter; // global class from CDN script
-        const filter = new Filter();
+      // Profanity filter with bad-words library
+      const filter = new Filter();  // <-- Fixed here: use Filter class directly
 
-        // Optional: Add custom words to filter if you want
-        // filter.addWords('deez', 'ligma', 'sus');
+      // Optional: Add custom words to filter if you want
+      // filter.addWords('deez', 'ligma', 'sus');
 
-        if (filter.isProfane(order.name)) {
-          alert("Please avoid using inappropriate language in your name.");
-          return; // stop submission if profanity detected
-        }
+      if (filter.isProfane(order.name)) {
+        alert("Please avoid using inappropriate language in your name.");
+        return; // stop submission if profanity detected
+      }
 
-        try {
-          await addDoc(collection(db, "orders"), order);
-          alert("Order submitted successfully!");
-          form.reset();
-        } catch (error) {
-          alert("Error submitting order: " + error.message);
-          console.error("Error adding order: ", error);
-        }
-      });
+      try {
+        await addDoc(collection(db, "orders"), order);
+        alert("Order submitted successfully!");
+        form.reset();
+      } catch (error) {
+        alert("Error submitting order: " + error.message);
+        console.error("Error adding order: ", error);
+      }
     });
-  </script>
+  });
+</script>
+
 
   <footer>
     <p>© 2025 Gum Nation. All rights reserved.</p>

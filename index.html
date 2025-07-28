@@ -138,42 +138,65 @@
 
 
   <!-- Firebase and app logic -->
+<!-- Include bad-words library -->
+<script src="https://cdn.jsdelivr.net/npm/bad-words"></script>
+
 <script type="module">
-  // Import Firebase modules
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const filter = new Filter(); // create filter instance
-
-async function submitOrder(order) {
-  if (filter.isProfane(order.name)) {
-    alert("Please avoid using inappropriate language in your name.");
-    return; // Block saving if bad words found
-  }
-
-  try {
-    await addDoc(collection(db, "orders"), order);
-    alert("Order saved successfully!");
-  } catch (err) {
-    alert("Error saving order: " + err.message);
-  }
-}
-
-// Example usage with a form submission:
-document.querySelector('form').addEventListener('submit', async e => {
-  e.preventDefault();
-
-  const formData = new FormData(e.target);
-  const order = {
-    name: formData.get('name').trim(),
-    flavor: formData.get('flavor'),
-    quantity: Number(formData.get('quantity')),
-    timestamp: Date.now()
+  const firebaseConfig = {
+    apiKey: "AIzaSyD_zQBr92bmmLjMNR5Rk-hI81MTU6AxuTc",
+    authDomain: "gum-nation.firebaseapp.com",
+    projectId: "gum-nation",
+    storageBucket: "gum-nation.firebasestorage.app",
+    messagingSenderId: "867714985681",
+    appId: "1:867714985681:web:3531a8983f4dc5c1cfdff0",
+    measurementId: "G-0C8NDPXTH7"
   };
 
-  await submitOrder(order);
-});
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
+  // Create filter instance once
+  const filter = new Filter();
+
+  // Select all forms with class 'order-form'
+  document.querySelectorAll('.order-form').forEach(form => {
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const name = formData.get('name').trim();
+      const flavor = formData.get('flavor');
+      const quantity = Number(formData.get('quantity'));
+
+      // Check profanity on the name only
+      if (filter.isProfane(name)) {
+        alert('Please avoid using inappropriate language in your name.');
+        return; // BLOCK submission if bad words found
+      }
+
+      // Prepare order object
+      const order = {
+        name,
+        flavor,
+        quantity,
+        timestamp: Date.now()
+      };
+
+      try {
+        await addDoc(collection(db, 'orders'), order);
+        alert('Order submitted successfully!');
+        form.reset();
+      } catch (error) {
+        alert('Error submitting order: ' + error.message);
+        console.error(error);
+      }
+    });
+  });
 </script>
+
 
 
 

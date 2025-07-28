@@ -137,11 +137,14 @@
 
   <!-- Firebase and app logic -->
 <script type="module">
-  import Filter from 'https://cdn.skypack.dev/bad-words';
+  // Import Firebase modules
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  // Firebase config
+  // Import bad-words filter as ES module
+  import Filter from "https://cdn.skypack.dev/bad-words";
+
+  // Initialize Firebase
   const firebaseConfig = {
     apiKey: "AIzaSyD_zQBr92bmmLjMNR5Rk-hI81MTU6AxuTc",
     authDomain: "gum-nation.firebaseapp.com",
@@ -155,38 +158,30 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // Create filter instance
+  // Initialize bad-words filter
   const filter = new Filter();
 
-  // OPTIONAL: Clear default bad words to prevent blocking normal words
-  // Comment this out to test if it solves your problem
-  filter.clearList();
-
-  // OPTIONAL: Add your own custom bad words if needed:
-  // filter.addWords('badword1', 'badword2');
-
+  // Attach event listeners to all order forms
   document.querySelectorAll(".order-form").forEach((form) => {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const formData = new FormData(form);
-      const nameInput = formData.get("name").trim();
+      const name = formData.get("name").trim();
+      const flavor = formData.get("flavor");
+      const quantity = Number(formData.get("quantity"));
 
-      if (nameInput === "") {
-        alert("Name cannot be empty.");
-        return;
-      }
-
-      // Profanity check
-      if (filter.isProfane(nameInput)) {
+      // Check for profanity in the name
+      if (filter.isProfane(name)) {
         alert("Please avoid using inappropriate language in your name.");
-        return;
+        return; // Stop submission if profane
       }
 
+      // Build order object
       const order = {
-        flavor: formData.get("flavor"),
-        name: nameInput,
-        quantity: Number(formData.get("quantity")),
+        flavor: flavor,
+        name: name,
+        quantity: quantity,
         timestamp: Date.now(),
       };
 

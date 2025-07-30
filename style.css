@@ -178,7 +178,7 @@ body, html{
     color: #ffffff;
     font-size: 60px;
     font-family: "Knewave", monospace;
-    -webkit-text-stroke-color: #fcab5f;
+    -webkit-text-stroke-color: #DAFAF6;
      -webkit-text-stroke-width: 3px;
 }
 
@@ -264,7 +264,7 @@ body, html{
 
 #TGumimg {
     width: 100%;
-    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTW-BUWcAFQDMQrCrM0QecS4vuZUD0Ttu6ZLQ&s');
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEmguLdHfjRil4nljFqeuyKK5UKkWf-1tB8A&s');
     background-size: contain;
     background-position: center;
     overflow: hidden;
@@ -284,7 +284,7 @@ body, html{
     font-size: 25px;
     font-family: "Parkinsans", monospace;
     text-align: center;
-    background-color: #e77533;
+    background-color: #DAFAF6;
 }
 
 @media (max-width: 768px) {

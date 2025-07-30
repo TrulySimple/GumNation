@@ -265,6 +265,8 @@ body, html{
 #TGumimg {
     width: 100%;
     background-image: url("downloadpgum.jpg") ;
+    background-size: contain;
+    background-position: center;
     width:  100%;    
     overflow: hidden;
     opacity: 0.89;
